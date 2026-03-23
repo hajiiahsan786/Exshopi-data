@@ -1,0 +1,221 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the marketplace (Customer, Vendor, or Admin)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique user ID from Firebase Auth" },
+        "email": { "type": "string", "format": "email", "description": "The user's email address" },
+        "displayName": { "type": "string", "description": "The user's full name" },
+        "photoURL": { "type": "string", "format": "uri", "description": "The user's profile picture URL" },
+        "role": { "type": "string", "enum": ["customer", "vendor", "admin"], "description": "The user's role in the marketplace" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "lastLogin": { "type": "string", "format": "date-time" },
+        "provider": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user account was created" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A professional product listing with comprehensive details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "brand": { "type": "string" },
+        "category": { "type": "string" },
+        "subcategory": { "type": "string" },
+        "productType": { "type": "string" },
+        "condition": { "type": "string", "enum": ["New", "Used", "Refurbished", "Open Box"] },
+        "sku": { "type": "string" },
+        "barcode": { "type": "string" },
+        "slug": { "type": "string" },
+        "status": { "type": "string", "enum": ["Draft", "Active", "Inactive"] },
+        "price": { "type": "number" },
+        "salePrice": { "type": "number" },
+        "costPrice": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "taxIncluded": { "type": "boolean" },
+        "discountType": { "type": "string", "enum": ["Percentage", "Fixed"] },
+        "discountAmount": { "type": "number" },
+        "offerStartDate": { "type": "string", "format": "date-time" },
+        "offerEndDate": { "type": "string", "format": "date-time" },
+        "stockQuantity": { "type": "number" },
+        "lowStockAlert": { "type": "number" },
+        "stockStatus": { "type": "string", "enum": ["In Stock", "Out of Stock", "On Backorder"] },
+        "unlimitedStock": { "type": "boolean" },
+        "serialNumber": { "type": "string" },
+        "warehouse": { "type": "string" },
+        "image": { "type": "string", "format": "uri", "description": "Cover Image" },
+        "gallery": { "type": "array", "items": { "type": "string" } },
+        "videoUrl": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "fullDescription": { "type": "string" },
+        "keyFeatures": { "type": "array", "items": { "type": "string" } },
+        "specifications": { "type": "object", "description": "Key-value pairs of technical specs" },
+        "whatsInBox": { "type": "string" },
+        "warrantyDetails": { "type": "string" },
+        "returnEligibility": { "type": "string" },
+        "deliveryNotes": { "type": "string" },
+        "installationNotes": { "type": "string" },
+        "isFeatured": { "type": "boolean" },
+        "isBestseller": { "type": "boolean" },
+        "isBestChoice": { "type": "boolean" },
+        "isOnSale": { "type": "boolean" },
+        "isTrending": { "type": "boolean" },
+        "isNewArrival": { "type": "boolean" },
+        "isRecommended": { "type": "boolean" },
+        "isFlashDeal": { "type": "boolean" },
+        "isBlackFriday": { "type": "boolean" },
+        "offerCampaign": { "type": "string" },
+        "bundleOffer": { "type": "string" },
+        "metaTitle": { "type": "string" },
+        "metaDescription": { "type": "string" },
+        "metaKeywords": { "type": "string" },
+        "ogImage": { "type": "string" },
+        "searchTags": { "type": "array", "items": { "type": "string" } },
+        "deliveryCities": { "type": "array", "items": { "type": "string" } },
+        "isSameDayDelivery": { "type": "boolean" },
+        "isCodAvailable": { "type": "boolean" },
+        "vatHandling": { "type": "string" },
+        "isWarrantyUAE": { "type": "boolean" },
+        "sellerLocationUAE": { "type": "string" },
+        "arabicName": { "type": "string" },
+        "arabicDescription": { "type": "string" },
+        "arabicKeyFeatures": { "type": "array", "items": { "type": "string" } },
+        "arabicSpecifications": { "type": "object" },
+        "rating": { "type": "number" },
+        "reviews": { "type": "number" },
+        "vendorId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "price", "category", "vendorId", "condition"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product categories and subcategories",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "arabicName": { "type": "string" },
+        "slug": { "type": "string" },
+        "icon": { "type": "string" },
+        "image": { "type": "string" },
+        "subcategories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "arabicName": { "type": "string" },
+              "slug": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["name", "slug"]
+    },
+    "Vendor": {
+      "title": "Vendor",
+      "description": "A vendor/seller in the marketplace",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerUid": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "sales": { "type": "string" },
+        "productsCount": { "type": "number" },
+        "status": { "type": "string", "enum": ["Active", "Pending", "Suspended"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "ownerUid", "status"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerUid": { "type": "string" },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": { "type": "string" },
+              "title": { "type": "string" },
+              "price": { "type": "number" },
+              "quantity": { "type": "number" },
+              "image": { "type": "string" }
+            }
+          }
+        },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["Processing", "Shipped", "Delivered", "Cancelled"] },
+        "shippingMethod": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "shippingAddress": {
+          "type": "object",
+          "properties": {
+            "firstName": { "type": "string" },
+            "lastName": { "type": "string" },
+            "mobile": { "type": "string" },
+            "emirate": { "type": "string" },
+            "address": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerUid", "items", "total", "status", "shippingAddress"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A product review",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "productId": { "type": "string" },
+        "userUid": { "type": "string" },
+        "userName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "userUid", "rating"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Product listings"
+    },
+    "/vendors/{vendorId}": {
+      "schema": "Vendor",
+      "description": "Vendor profiles"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders"
+    },
+    "/products/{productId}/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Reviews for a specific product"
+    }
+  }
+}
